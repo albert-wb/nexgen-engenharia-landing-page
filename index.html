@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexGen Engenharia | Soluções Estruturais</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <style>
+        /* Reset & Base Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #007bff;
+            --deep-blue: #0056b3;
+            --accent-steel: #6c757d;
+            --black: #050a14;
+            --dark-slate: #0b1120;
+            --gray-slate: #1e293b;
+            --light-gray: #94a3b8;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased; /* Renderização de fonte mais nítida */
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--black) 0%, var(--dark-slate) 100%);
+        }
+
+        /* CSS-Only Grid Animation (Substitui imagens pesadas) */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: gridMove 20s linear infinite;
+            pointer-events: none; /* Garante que o clique passe para o conteúdo */
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+        
+        .hero-text h1 span {
+            color: var(--primary-blue);
+        }
+
+        .hero-text .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--light-gray);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        .hero-text .tagline {
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-text .tagline::before {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background: var(--primary-blue);
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .btn-primary:hover {
+            background: var(--deep-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Abstract Visual Component */
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .blueprint-circle {
+            width: 300px;
+            height: 300px;
+            border: 2px dashed var(--primary-blue);
+            border-radius: 50%;
+            position: absolute;
+            animation: rotate 20s linear infinite;
+        }
+
+        .blueprint-square {
+            width: 200px;
+            height: 200px;
+            border: 2px solid var(--light-gray);
+            position: absolute;
+            transform: rotate(45deg);
+            opacity: 0.3;
+        }
+
+        .main-icon {
+            font-size: 8rem;
+            color: var(--white);
+            z-index: 2;
+            text-shadow: 0 0 50px rgba(0, 123, 255, 0.5);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--dark-slate);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--white);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--black);
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            font-weight: 700;
+        }
+
+        .section-title span {
+            color: var(--primary-blue);
+            position: relative;
+        }
+        
+        .section-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-blue);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--gray-slate);
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            background: rgba(0, 123, 255, 0.1);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .feature-card p {
+            color: var(--light-gray);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* Sectors Grid */
+        .sectors {
+            padding: 6rem 2rem;
+            background: var(--dark-slate);
+        }
+
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .sector-box {
+            aspect-ratio: 1/1;
+            background: var(--black);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed var(--light-gray);
+            transition: all 0.4s ease;
+            cursor: default;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .sector-box:hover {
+            border-style: solid;
+            border-color: var(--primary-blue);
+            background: var(--gray-slate);
+        }
+
+        .sector-box i {
+            font-size: 4rem;
+            color: var(--accent-steel);
+            margin-bottom: 1.5rem;
+            transition: color 0.4s ease;
+        }
+
+        .sector-box:hover i {
+            color: var(--primary-blue);
+        }
+
+        .sector-box h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Technical Specs Section */
+        .specs-section {
+            padding: 6rem 2rem;
+            background: var(--black);
+        }
+
+        .specs-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .code-block {
+            background: var(--dark-slate);
+            padding: 2rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: var(--primary-blue);
+            border-left: 4px solid var(--primary-blue);
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: '// TECHNICAL_SPECS_V2.0';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--black);
+            padding: 0 10px;
+            color: var(--light-gray);
+            font-size: 0.8rem;
+        }
+
+        .specs-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .spec-item {
+            padding-left: 1.5rem;
+            border-left: 1px solid var(--gray-slate);
+            position: relative;
+        }
+        
+        .spec-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 0;
+            width: 9px;
+            height: 9px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+        }
+
+        .spec-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .spec-item p {
+            font-size: 1rem;
+            color: var(--light-gray);
+        }
+
+        /* Comparison Section */
+        .review-section {
+            padding: 6rem 2rem;
+            background: var(--dark-slate);
+        }
+
+        .review-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .review-column {
+            background: var(--black);
+            padding: 2.5rem;
+            border-radius: 8px;
+        }
+
+        .review-column.pros {
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .review-column.cons {
+            border-top: 4px solid var(--accent-steel);
+            opacity: 0.8;
+        }
+
+        .review-column h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .review-column.pros h3 {
+            color: var(--primary-blue);
+        }
+
+        .review-column.cons h3 {
+            color: var(--light-gray);
+        }
+
+        .review-list {
+            list-style: none;
+        }
+
+        .review-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .review-list li i {
+            font-size: 1.3rem;
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .review-column.pros li i {
+            color: var(--primary-blue);
+        }
+
+        .review-column.cons li i {
+            color: var(--accent-steel);
+        }
+
+        /* Footer */
+        footer {
+            background: #050a14;
+            padding: 50px 20px;
+            color: #EAEAEA;
+            border-top: 1px solid var(--gray-slate);
+        }
+
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+        
+        .footer-logo i {
+            color: var(--primary-blue);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            color: #555;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text .subtitle {
+                margin: 0 auto 2rem;
+            }
+
+            .cta-group {
+                justify-content: center;
+            }
+
+            .specs-container,
+            .review-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="tagline">Inovação & Estrutura</p>
+                <h1>NexGen<br><span>Engenharia</span></h1>
+                <p class="subtitle">Desenvolvemos projetos de alta complexidade com tecnologia BIM, cálculos de precisão e sustentabilidade integrada.</p>
+                <div class="cta-group">
+                    <a href="#services" class="btn-primary">
+                        <i class="ri-rocket-line"></i>
+                        Nossos Projetos
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="blueprint-circle"></div>
+                <div class="blueprint-square"></div>
+                <i class="ri-compasses-2-line main-icon"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>+150</h3>
+                <p>Obras Entregues</p>
+            </div>
+            <div class="stat-item">
+                <h3>20 Anos</h3>
+                <p>De Experiência</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>No Prazo</p>
+            </div>
+            <div class="stat-item">
+                <h3>Zero</h3>
+                <p>Acidentes</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="services">
+        <div class="features-container">
+            <h2 class="section-title">Nossas <span>Especialidades</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-building-4-line"></i>
+                    </div>
+                    <h3>Projetos Estruturais</h3>
+                    <p>Cálculo estrutural avançado para edifícios residenciais e comerciais, garantindo segurança e otimização de materiais.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-computer-line"></i>
+                    </div>
+                    <h3>Modelagem BIM</h3>
+                    <p>Utilização de software de ponta (Revit/TQS) para compatibilização de projetos e redução de erros na execução.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-leaf-line"></i>
+                    </div>
+                    <h3>Engenharia Sustentável</h3>
+                    <p>Soluções focadas em eficiência energética, reuso de água e materiais de baixo impacto ambiental.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-flashlight-line"></i>
+                    </div>
+                    <h3>Sistemas Elétricos</h3>
+                    <p>Projetos de alta tensão, subestações e automação predial com foco em segurança normativa (NR-10).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-drop-line"></i>
+                    </div>
+                    <h3>Hidrossanitário</h3>
+                    <p>Dimensionamento preciso de redes de água fria, quente e esgoto, prevenindo patologias futuras.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="ri-file-search-line"></i>
+                    </div>
+                    <h3>Laudos Técnicos</h3>
+                    <p>Vistorias, perícias e inspeções prediais realizadas por engenheiros sêniores credenciados no CREA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sectors">
+        <div class="features-container">
+            <h2 class="section-title">Áreas de <span>Atuação</span></h2>
+            <div class="sectors-grid">
+                <div class="sector-box">
+                    <i class="ri-community-line"></i>
+                    <h4>Residencial</h4>
+                </div>
+                <div class="sector-box">
+                    <i class="ri-factory-line"></i>
+                    <h4>Industrial</h4>
+                </div>
+                <div class="sector-box">
+                    <i class="ri-store-3-line"></i>
+                    <h4>Comercial</h4>
+                </div>
+                <div class="sector-box">
+                    <i class="ri-government-line"></i>
+                    <h4>Infraestrutura</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="specs-section">
+        <div class="specs-container">
+            <div class="code-block">
+                &lt;div class="tech-stack"&gt;<br>
+                &nbsp;&nbsp;System: TQS/Revit;<br>
+                &nbsp;&nbsp;Analysis: FEM Method;<br>
+                &nbsp;&nbsp;Norms: NBR-6118;<br>
+                &nbsp;&nbsp;Render: V-Ray;<br>
+                &lt;/div&gt;
+            </div>
+            <div class="specs-list">
+                <div class="spec-item">
+                    <h4>Tecnologia de Cálculo</h4>
+                    <p>Análise por Elementos Finitos (FEM) para simular esforços complexos e garantir a estabilidade global da estrutura.</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Compatibilização</h4>
+                    <p>Detecção automática de conflitos (Clash Detection) entre estrutura, elétrica e hidráulica antes da obra começar.</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Normas Técnicas</h4>
+                    <p>Rigoroso atendimento à NBR 6118, NBR 15575 (Desempenho) e normas internacionais quando aplicável.</p>
+                </div>
+                <div class="spec-item">
+                    <h4>Gestão de Obra</h4>
+                    <p>Acompanhamento via drone e relatórios digitais em tempo real para controle de cronograma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="review-section">
+        <div class="review-container">
+            <h2 class="section-title">Padrão <span>NexGen</span></h2>
+            <div class="review-grid">
+                <div class="review-column pros">
+                    <h3>
+                        <i class="ri-shield-check-fill"></i>
+                        Nossa Metodologia
+                    </h3>
+                    <ul class="review-list">
+                        <li>
+                            <i class="ri-check-line"></i>
+                            <div>
+                                <strong>Projeto Executivo Detalhado</strong>
+                                <span>Entregamos cada detalhe construtivo, eliminando dúvidas no canteiro de obras e desperdícios.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="ri-check-line"></i>
+                            <div>
+                                <strong>Economia de Materiais</strong>
+                                <span>Otimização estrutural que pode gerar até 20% de economia em aço e concreto.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="ri-check-line"></i>
+                            <div>
+                                <strong>Suporte Técnico Contínuo</strong>
+                                <span>Engenheiros disponíveis durante toda a fase de execução para consultoria.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="review-column cons">
+                    <h3>
+                        <i class="ri-alert-line"></i>
+                        Mercado Tradicional
+                    </h3>
+                    <ul class="review-list">
+                        <li>
+                            <i class="ri-close-line"></i>
+                            <div>
+                                <strong>Projetos Genéricos</strong>
+                                <span>Soluções prontas que não consideram as especificidades do solo ou arquitetura.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="ri-close-line"></i>
+                            <div>
+                                <strong>Superdimensionamento</strong>
+                                <span>Uso excessivo de material por falta de cálculo refinado, encarecendo a obra.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="ri-close-line"></i>
+                            <div>
+                                <strong>Falta de Compatibilização</strong>
+                                <span>Tubulações cruzando vigas e pilares, gerando retrabalho e quebra-quebra.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="ri-compasses-fill"></i> NexGen
+            </div>
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">Projetos</a>
+                <a href="#">Sobre Nós</a>
+                <a href="#">Contato</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
+            <div class="copyright">
+                <p>© 2025 NexGen Engenharia e Construções. Todos os direitos reservados.</p>
+                <p class="cnpj">CNPJ: 00.000.000/0001-00 - São Paulo, SP</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scroll para navegação interna
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
